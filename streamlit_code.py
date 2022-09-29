@@ -199,6 +199,48 @@ st.header('CSV & API dataframes doormiddel functie merge samenvoegen')
 
 # In[95]:
 
+code2= '''
+#inventories(csv) + sets (api)
+years = df_inventories.merge(df_sets, on='set_num')
+
+#inventories (csv)+ sets(API) + themes(csv)
+df_sets_themes = years.merge(df1_themes, how="left", left_on = ['theme_id'], right_on = ['id'], suffixes=('_sets', '_theme'))
+
+#inventories (csv)+ sets(API) + themes(csv) + iventories_parts (csv)
+df_sets_themes_parts = df_sets_themes.merge(df_inventory_parts, how="left", left_on = ['id_sets'], right_on = ['inventory_id'], suffixes=('_', '_parts'))
+
+#inventories (csv)+ sets(API) + themes(csv) + iventories_parts (csv)+ colors (API)
+df_totaal = df_sets_themes_parts.merge(df_colors, how="left", left_on = ['color_id'], right_on = ['id'], suffixes=('_', '_colour'))
+df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
+
+# root_id is parent_id of theme_id, mocht er geen parent id zijn (kwaliteit dataset verbeteren)
+df_totaal.parent_id = df_totaal.parent_id.fillna(value=df_totaal.id_theme)
+
+#Voeg is_trans en kleur bij elkaar (kwaliteit dataset verbeteren)
+df_totaal["is_transa"] = np.where(df_totaal["is_trans"]==True, '#TT' ,'#FF' )                  
+df_totaal['rgba'] = df_totaal['rgb'] + df_totaal['is_transa']
+df_totaal['rgba'] = df_totaal['rgb'] + df_totaal['is_transa']
+
+#Vermenigvuldig de rows met de hoeveelheid quantity (kwaliteit dataset verbeteren)
+df_totaal = df_totaal[df_totaal['quantity'].notna()]
+df_totaal=df_totaal.loc[df_totaal.index.repeat(df_totaal.quantity)]
+
+#Neem alleen nuttige data mee 
+df_totaal = df_totaal[['set_num','name_sets','year','num_parts','name_theme','theme_id','parent_id','color_id','name','rgba','date','is_trans']]
+df_totaal=df_totaal.reset_index()
+
+#Creeren van de kolom count en date (kwaliteit dataset verbeteren)
+df_totaal['count'] = df_totaal.index
+df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
+
+
+#Schoone dataset:
+st.text('Hieronder staat de gebruikte op geschoonde dataset.')
+st.dataframe(df_totaal)
+df_totaal
+st.dataframe(df_totaal)
+'''
+st.code(code2,language='python')
 
 
 #inventories(csv) + sets (api)
@@ -243,51 +285,6 @@ st.dataframe(df_totaal)
 
 
 # In[96]:
-
-
-code2= '''
-#inventories(csv) + sets (api)
-years = df_inventories.merge(df_sets, on='set_num')
-
-#inventories (csv)+ sets(API) + themes(csv)
-df_sets_themes = years.merge(df1_themes, how="left", left_on = ['theme_id'], right_on = ['id'], suffixes=('_sets', '_theme'))
-
-#inventories (csv)+ sets(API) + themes(csv) + iventories_parts (csv)
-df_sets_themes_parts = df_sets_themes.merge(df_inventory_parts, how="left", left_on = ['id_sets'], right_on = ['inventory_id'], suffixes=('_', '_parts'))
-
-#inventories (csv)+ sets(API) + themes(csv) + iventories_parts (csv)+ colors (API)
-df_totaal = df_sets_themes_parts.merge(df_colors, how="left", left_on = ['color_id'], right_on = ['id'], suffixes=('_', '_colour'))
-df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
-
-# root_id is parent_id of theme_id, mocht er geen parent id zijn (kwaliteit dataset verbeteren)
-df_totaal.parent_id = df_totaal.parent_id.fillna(value=df_totaal.id_theme)
-
-#Voeg is_trans en kleur bij elkaar (kwaliteit dataset verbeteren)
-df_totaal["is_transa"] = np.where(df_totaal["is_trans"]==True, '#TT' ,'#FF' )                  
-df_totaal['rgba'] = df_totaal['rgb'] + df_totaal['is_transa']
-df_totaal['rgba'] = df_totaal['rgb'] + df_totaal['is_transa']
-
-#Vermenigvuldig de rows met de hoeveelheid quantity (kwaliteit dataset verbeteren)
-df_totaal = df_totaal[df_totaal['quantity'].notna()]
-df_totaal=df_totaal.loc[df_totaal.index.repeat(df_totaal.quantity)]
-
-#Neem alleen nuttige data mee 
-df_totaal = df_totaal[['set_num','name_sets','year','num_parts','name_theme','theme_id','parent_id','color_id','name','rgba','date','is_trans']]
-df_totaal=df_totaal.reset_index()
-
-#Creeren van de kolom count en date (kwaliteit dataset verbeteren)
-df_totaal['count'] = df_totaal.index
-df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
-
-
-#Schoone dataset:
-st.text('Hieronder staat de gebruikte op geschoonde dataset.')
-st.dataframe(df_totaal)
-df_totaal
-st.dataframe(df_totaal)
-'''
-st.code(code2,language='python')
-
 
 # In[51]:
 
