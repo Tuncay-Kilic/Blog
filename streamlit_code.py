@@ -27,12 +27,15 @@ st.title('2022-2023 sem-1 Case 2: Blog')
 st.header('Lego door de jaren heen')
 st.subheader(' Team 7: Tuncay, Umut, Annika, Estelle') 
 
-st.text('Welkom op onze pagina. Wij zijn vier studenten van de Hoogeschool van Amsterdam. Wij hebben de opdracht gekregen om een blog te maken over een zelf gekozen dataset.')
-st.text('Wij hebben de dataset LEGO gekozen. Wij zetten alle leuke feitjes over de lego kleurtjes, themas en sets voor jouw op een rij.')
-st.text('Wij leren jullie op een leuke manier om datasets te leren gebruiken aan de hand van de leukste dataset LEGO.' )
-st.text ("Wij nemen jouw mee in het proces die wij hebben gedaan om achter deze feitjes te komen")
-st.text('Ben jij je al nieuwsgierig geworden in de inzichten van de lego dataset? En hoe wij tot de weetjes zijn gekomen? ')
-st.text("Lees maar snel verder en dan leren wij jouw eenn coole lego dataset bouwen" )     
+st.text('Welkom op onze pagina. Wij zijn vier studenten van de Hogeschool van Amsterdam.')
+st.text('Wij hebben de opdracht gekregen om een blog te maken over een zelf gekozen dataset.')
+st.text('Hiervoor hebben we de dataset LEGO gekozen.')
+st.text('Wij zetten alle leuke feitjes over de lego kleurtjes, themas en sets voor jouw op een rij.')
+st.text('Hierdoor zal je op een interactieve manier datasets leren gebruiken, aan de hand van de dataset LEGO.' )
+st.text ('Wij nemen jouw mee in ons proces om achter deze waarnemingen te komen.')
+st.text('Ben jij je al nieuwsgierig geworden in de inzichten van de lego dataset?')
+st.text('En hoe wij tot de weetjes zijn gekomen?')
+st.text('Lees maar snel verder en dan leren wij jouw een coole lego dataset bouwen.')     
 
 
 # In[44]:
@@ -93,6 +96,10 @@ st.text('Top! Dit is gelukt. De 200 geeft aan dat de API goed is voor gebruik. N
 
 
 # In[ ]:
+
+
+
+
 
 # In[47]:
 
@@ -233,6 +240,8 @@ df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
 #Schoone dataset:
 st.text('Hieronder staat de gebruikte op geschoonde dataset.')
 st.dataframe(df_totaal)
+df_totaal
+st.dataframe(df_totaal)
 '''
 st.code(code2,language='python')
 
@@ -274,6 +283,9 @@ df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
 #Schoone dataset:
 st.text('Hieronder staat de gebruikte op geschoonde dataset.')
 st.dataframe(df_totaal)
+df_totaal
+st.dataframe(df_totaal)
+
 
 # In[96]:
 
@@ -289,6 +301,19 @@ st.text('Dit hebben we gedaan om als nog bepaalde visualisatie te kunnen doen. S
 
 # In[55]:
 
+
+#Hoeveel missende data is er?
+missende_data = df_totaal.isnull().sum().sort_values(ascending=False)
+print(missende_data)
+
+#Missende data wegfilteren: df 
+#df = df_totaal.dropna()
+df = df_totaal.fillna(0)
+
+
+# In[97]:
+
+
 code3='''
 #Hoeveel missende data is er?
 missende_data = df_totaal.isnull().sum().sort_values(ascending=False)
@@ -297,28 +322,12 @@ print(missende_data)
 #Missende data wegfilteren: df 
 #df = df_totaal.dropna()
 df = df_totaal.fillna(0)
-st.dataframe(df)
+st.code(code)
 '''
 st.code(code3,language='python')
 
 
 # In[98]:
-
-
-#Hoeveel missende data is er?
-missende_data = df_totaal.isnull().sum().sort_values(ascending=False)
-print(missende_data)
-
-#Missende data wegfilteren: df 
-#df = df_totaal.dropna()
-df = df_totaal.fillna(0)
-st.dataframe(df)
-
-
-# In[97]:
-
-
-
 
 
 st.subheader('Importeer  CSV vs API  (kwaliteitskeuze)')
@@ -350,7 +359,7 @@ fig_p = px.scatter(parts_year,
               y="num_parts",
               labels={"year": "Jaar",
                       "num_parts": "Aantal onderdelen"},
-              title='CSV: Gemiddeld aantal onderdelen per set over de jaren ')
+              title='CSV: Gemiddeld aantal onderdelen per set over de jaren met')
 
 fig_p.show()
 st.plotly_chart(fig_p)
