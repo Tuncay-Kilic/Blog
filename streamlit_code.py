@@ -289,20 +289,6 @@ st.text('Dit hebben we gedaan om als nog bepaalde visualisatie te kunnen doen. S
 
 # In[55]:
 
-
-#Hoeveel missende data is er?
-missende_data = df_totaal.isnull().sum().sort_values(ascending=False)
-print(missende_data)
-
-#Missende data wegfilteren: df 
-#df = df_totaal.dropna()
-df = df_totaal.fillna(0)
-st.dataframe(df)
-
-
-# In[97]:
-
-
 code3='''
 #Hoeveel missende data is er?
 missende_data = df_totaal.isnull().sum().sort_values(ascending=False)
@@ -317,6 +303,22 @@ st.code(code3,language='python')
 
 
 # In[98]:
+
+
+#Hoeveel missende data is er?
+missende_data = df_totaal.isnull().sum().sort_values(ascending=False)
+print(missende_data)
+
+#Missende data wegfilteren: df 
+#df = df_totaal.dropna()
+df = df_totaal.fillna(0)
+st.dataframe(df)
+
+
+# In[97]:
+
+
+
 
 
 st.subheader('Importeer  CSV vs API  (kwaliteitskeuze)')
