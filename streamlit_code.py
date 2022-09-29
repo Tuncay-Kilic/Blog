@@ -64,7 +64,7 @@ print(f"Response code voor API 'sets': {response_sets.status_code}")
 
 #API: themes
 response_themes= requests.get("https://rebrickable.com/api/v3/lego/themes/?key=1596f7b76482d264ab289aa7a9c16cb0")
-print(f"Response code voor API 'themes': {response_themes.status_code}) 
+print(f"Response code voor API 'themes': {response_themes.status_code}") 
 
 st.code(code, language='python')
 
