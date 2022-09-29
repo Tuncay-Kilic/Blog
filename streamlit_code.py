@@ -20,6 +20,7 @@ from pandas import json_normalize
 
 # In[43]:
 
+st.text('Halloooooo ik ben annika')
 
 
 color_map = ["cyan", "darkcyan", "cornflowerblue"] 
