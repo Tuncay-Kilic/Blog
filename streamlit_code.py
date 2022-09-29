@@ -20,9 +20,6 @@ from pandas import json_normalize
 
 # In[43]:
 
-st.text('Halloooooo ik ben annika')
-
-
 color_map = ["cyan", "darkcyan", "cornflowerblue"] 
 st.title('2022-2023 sem-1 Case 2: Blog')
 st.header('Lego door de jaren heen')
