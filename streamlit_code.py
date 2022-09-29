@@ -474,7 +474,7 @@ st.plotly_chart(fig_b_k)
 # ### Aantal nieuwe legosets door de jaren heen
 st.subheader('Slider:')
 st.subheader('Aantal nieuwe legosets door de jaren heen')
-st.text('Bovenstaande grafiek geeft het aantal legosets weer per jaar en wat de namen hiervan zijn. ')
+st.text('Onderstaande grafiek geeft het aantal legosets weer per jaar en wat de namen hiervan zijn. ')
 st.text('Met behulp van de slider kan er gekeken worden per jaar.')
 
 # In[78]:
@@ -516,7 +516,7 @@ st.plotly_chart(fig_set)
 # ### Hoeveelheid parts uitgebracht in een jaar is transparant wel of niet
 st.subheader('Checkbox: :')
 st.subheader('Hoeveelheid parts uitgebracht in een jaar is transparant wel of niet')
-st.text('Bovenstaande grafiek geeft de hoeveelheid parts per jaar weer en of deze transparant zijn of niet. ')
+st.text('Onderstaande grafiek geeft de hoeveelheid parts per jaar weer en of deze transparant zijn of niet. ')
 st.text('De meerderheid van alle blokjes is duidelijk niet transparant.')
 st.text('Verder ontbreekt hier duidelijk ook data, dus dat is jammer en geeft geen goed overzicht.')
 
