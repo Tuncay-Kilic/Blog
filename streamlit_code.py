@@ -531,16 +531,16 @@ df_yellow = df[df["name"] == "Yellow"].groupby('year').sum()['count'].reset_inde
 
 # Creeer de lijn
 fig_drop = go.Figure()
-z= fig.add_trace(go.Scatter(x=df_black['year'], y=df_black["count"], mode='lines+markers', line_color='#5A5A5A', name='Zwart'))
-b= fig.add_trace(go.Scatter(x=df_blue['year'], y=df_blue["count"], mode='lines+markers', line_color='blue', name='Blauw'))
-br= fig.add_trace(go.Scatter(x=df_brown['year'], y=df_brown["count"], mode='lines+markers', line_color='#964B00', name='Bruin'))
-dg= fig.add_trace(go.Scatter(x=df_dark_gray['year'], y=df_dark_gray["count"], mode='lines+markers', line_color='gray', name='Donker grijs'))
-g= fig.add_trace(go.Scatter(x=df_green['year'], y=df_green["count"], mode='lines+markers', line_color='green', name='Groen'))
-lb= fig.add_trace(go.Scatter(x=df_trans_light_blue['year'], y=df_trans_light_blue["count"], mode='lines+markers', line_color=' #add8e6', name='Doorzichtig lichtblauw'))
-r= fig.add_trace(go.Scatter(x=df_trans_red['year'], y=df_trans_red["count"], mode='lines+markers', line_color=' #ffcccb', name='Doorzichtig rood'))
-ty= fig.add_trace(go.Scatter(x=df_trans_yellow['year'], y=df_trans_yellow["count"], mode='lines+markers', line_color='#ffffe0', name='Doorzichtig geel'))
-w= fig.add_trace(go.Scatter(x=df_white['year'], y=df_white["count"], mode='lines+markers', line_color='white', name='Wit'))
-y= fig.add_trace(go.Scatter(x=df_yellow['year'], y=df_yellow["count"], mode='lines+markers', line_color='yellow', name='Geel'))
+z= fig_drop.add_trace(go.Scatter(x=df_black['year'], y=df_black["count"], mode='lines+markers', line_color='#5A5A5A', name='Zwart'))
+b= fig_drop.add_trace(go.Scatter(x=df_blue['year'], y=df_blue["count"], mode='lines+markers', line_color='blue', name='Blauw'))
+br= fig_drop.add_trace(go.Scatter(x=df_brown['year'], y=df_brown["count"], mode='lines+markers', line_color='#964B00', name='Bruin'))
+dg= fig_drop.add_trace(go.Scatter(x=df_dark_gray['year'], y=df_dark_gray["count"], mode='lines+markers', line_color='gray', name='Donker grijs'))
+g= fig_drop.add_trace(go.Scatter(x=df_green['year'], y=df_green["count"], mode='lines+markers', line_color='green', name='Groen'))
+lb= fig_drop.add_trace(go.Scatter(x=df_trans_light_blue['year'], y=df_trans_light_blue["count"], mode='lines+markers', line_color=' #add8e6', name='Doorzichtig lichtblauw'))
+r= fig_drop.add_trace(go.Scatter(x=df_trans_red['year'], y=df_trans_red["count"], mode='lines+markers', line_color=' #ffcccb', name='Doorzichtig rood'))
+ty= fig_drop.add_trace(go.Scatter(x=df_trans_yellow['year'], y=df_trans_yellow["count"], mode='lines+markers', line_color='#ffffe0', name='Doorzichtig geel'))
+w= fig_drop.add_trace(go.Scatter(x=df_white['year'], y=df_white["count"], mode='lines+markers', line_color='white', name='Wit'))
+y= fig_drop.add_trace(go.Scatter(x=df_yellow['year'], y=df_yellow["count"], mode='lines+markers', line_color='yellow', name='Geel'))
 
 # Creer de dropdownbutton per kleur
 dropdown_buttons = [
