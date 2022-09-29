@@ -46,7 +46,7 @@ st.text('Dit doen we doormiddel van de response code.')
     
 
 
-# In[45]:
+# In[85]:
 
 
 
@@ -65,8 +65,6 @@ print(f"Response code voor API 'sets': {response_sets.status_code}")
 #API: themes
 response_themes= requests.get("https://rebrickable.com/api/v3/lego/themes/?key=1596f7b76482d264ab289aa7a9c16cb0")
 print(f"Response code voor API 'themes': {response_themes.status_code}") 
-
-st.code(code)
 
 
 # In[46]:
@@ -89,7 +87,7 @@ st.header('Importeren van de API s &CSV bestanden')
 st.text('Nu gaan we de API en de csv bestanden inlanden')
 
 
-# In[48]:
+# In[86]:
 
 
 # Importeren van de API's : color, sets, themes
@@ -129,7 +127,49 @@ df_inventory_parts = pd.read_csv('inventory_parts.csv')
 df1_themes = pd.read_csv('themes.csv')
 df_csv_sets = pd.read_csv('sets.csv')
 
-st.code(code, language='python')
+
+# In[91]:
+
+
+code1='''
+# Importeren van de API's : color, sets, themes
+url_colors ="https://rebrickable.com/api/v3/lego/colors/?key=1596f7b76482d264ab289aa7a9c16cb0"
+url_sets = "https://rebrickable.com/api/v3/lego/sets/?key=1596f7b76482d264ab289aa7a9c16cb0"
+url_themes = "https://rebrickable.com/api/v3/lego/themes/?key=1596f7b76482d264ab289aa7a9c16cb0"
+
+
+# Doormiddel van package 'request' de url omzetten naar response: r
+r_colors = requests.get(url_colors)
+r_sets = requests.get(url_sets)
+r_themes = requests.get(url_themes)
+
+
+# Decode de JSON data naar een dictionary: json_data
+#color
+json_colors = r_colors.json()
+df_colors = pd.json_normalize(json_colors,record_path=['results'])  # Maak van json een DataFrame
+df_colors = pd.DataFrame(df_colors, columns=['id', 'name', 'rgb', 'is_trans'])
+df_colors.drop(index=df_colors.index[0], # Haal de eerste rij weg, id=-1 en andere variabelen slaan nergens op
+        axis=0,
+        inplace=True)
+
+#sets
+json_sets = r_sets.json()
+df_sets = pd.json_normalize(json_sets,record_path=['results']) # Maak van json een DataFrame
+df_sets = pd.DataFrame(df_sets, columns=['set_num', 'name', 'year', 'theme_id', 'num_parts'])
+
+#themes
+json_themes = r_themes.json()
+df_themes = pd.json_normalize(json_themes,record_path=['results']) # Maak van json een DataFrame
+df_themes = pd.DataFrame(df_themes)
+
+#Inladen overige csv waarvan API niet beschikbaar was: inventories, inventory, themes
+df_inventories = pd.read_csv('inventories.csv')
+df_inventory_parts = pd.read_csv('inventory_parts.csv')
+df1_themes = pd.read_csv('themes.csv')
+df_csv_sets = pd.read_csv('sets.csv')
+'''
+st.code(code1, language = 'python')
 
 
 # In[49]:
@@ -139,7 +179,8 @@ st.header('CSV & API dataframes doormiddel functie merge samenvoegen')
 
 
 
-# In[54]:
+# In[95]:
+
 
 
 #inventories(csv) + sets (api)
@@ -180,6 +221,54 @@ df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
 st.text('Hieronder staat de gebruikte op geschoonde dataset.')
 st.dataframe(df_totaal)
 df_totaal
+st.dataframe(df_totaal)
+
+
+# In[96]:
+
+
+code2= '''
+#inventories(csv) + sets (api)
+years = df_inventories.merge(df_sets, on='set_num')
+
+#inventories (csv)+ sets(API) + themes(csv)
+df_sets_themes = years.merge(df1_themes, how="left", left_on = ['theme_id'], right_on = ['id'], suffixes=('_sets', '_theme'))
+
+#inventories (csv)+ sets(API) + themes(csv) + iventories_parts (csv)
+df_sets_themes_parts = df_sets_themes.merge(df_inventory_parts, how="left", left_on = ['id_sets'], right_on = ['inventory_id'], suffixes=('_', '_parts'))
+
+#inventories (csv)+ sets(API) + themes(csv) + iventories_parts (csv)+ colors (API)
+df_totaal = df_sets_themes_parts.merge(df_colors, how="left", left_on = ['color_id'], right_on = ['id'], suffixes=('_', '_colour'))
+df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
+
+# root_id is parent_id of theme_id, mocht er geen parent id zijn (kwaliteit dataset verbeteren)
+df_totaal.parent_id = df_totaal.parent_id.fillna(value=df_totaal.id_theme)
+
+#Voeg is_trans en kleur bij elkaar (kwaliteit dataset verbeteren)
+df_totaal["is_transa"] = np.where(df_totaal["is_trans"]==True, '#TT' ,'#FF' )                  
+df_totaal['rgba'] = df_totaal['rgb'] + df_totaal['is_transa']
+df_totaal['rgba'] = df_totaal['rgb'] + df_totaal['is_transa']
+
+#Vermenigvuldig de rows met de hoeveelheid quantity (kwaliteit dataset verbeteren)
+df_totaal = df_totaal[df_totaal['quantity'].notna()]
+df_totaal=df_totaal.loc[df_totaal.index.repeat(df_totaal.quantity)]
+
+#Neem alleen nuttige data mee 
+df_totaal = df_totaal[['set_num','name_sets','year','num_parts','name_theme','theme_id','parent_id','color_id','name','rgba','date','is_trans']]
+df_totaal=df_totaal.reset_index()
+
+#Creeren van de kolom count en date (kwaliteit dataset verbeteren)
+df_totaal['count'] = df_totaal.index
+df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
+
+
+#Schoone dataset:
+st.text('Hieronder staat de gebruikte op geschoonde dataset.')
+st.dataframe(df_totaal)
+df_totaal
+st.dataframe(df_totaal)
+'''
+st.code(code2,language='python')
 
 
 # In[51]:
@@ -202,10 +291,26 @@ print(missende_data)
 #Missende data wegfilteren: df 
 #df = df_totaal.dropna()
 df = df_totaal.fillna(0)
-st.code(code, language='python')
+st.code(code)
 
 
-# In[56]:
+# In[97]:
+
+
+code3='''
+#Hoeveel missende data is er?
+missende_data = df_totaal.isnull().sum().sort_values(ascending=False)
+print(missende_data)
+
+#Missende data wegfilteren: df 
+#df = df_totaal.dropna()
+df = df_totaal.fillna(0)
+st.code(code)
+'''
+st.code(code3,language='python')
+
+
+# In[98]:
 
 
 st.subheader('Importeer  CSV vs API  (kwaliteitskeuze)')
@@ -243,7 +348,7 @@ fig_p.show()
 st.plotly_chart(fig_p)
 
 
-# In[63]:
+# In[99]:
 
 
 #Importeren van visualisatie thema
@@ -273,7 +378,7 @@ st.plotly_chart(fig_g_y)
 
 # ##### Sets: gemiddel aantal onderdel per set
 
-# In[68]:
+# In[100]:
 
 
 ##sets
