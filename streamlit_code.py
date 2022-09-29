@@ -237,8 +237,6 @@ df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
 #Schoone dataset:
 st.text('Hieronder staat de gebruikte op geschoonde dataset.')
 st.dataframe(df_totaal)
-df_totaal
-st.dataframe(df_totaal)
 '''
 st.code(code2,language='python')
 
@@ -280,9 +278,6 @@ df_totaal['date']=pd.to_datetime(df_totaal['year'], format="%Y")
 #Schoone dataset:
 st.text('Hieronder staat de gebruikte op geschoonde dataset.')
 st.dataframe(df_totaal)
-df_totaal
-st.dataframe(df_totaal)
-
 
 # In[96]:
 
