@@ -20,20 +20,21 @@ from pandas import json_normalize
 
 # In[43]:
 
+
+
 color_map = ["cyan", "darkcyan", "cornflowerblue"] 
 st.title('2022-2023 sem-1 Case 2: Blog')
 st.header('Lego door de jaren heen')
 st.subheader(' Team 7: Tuncay, Umut, Annika, Estelle') 
 
-st.text('Welkom op onze pagina. Wij zijn vier studenten van de Hogeschool van Amsterdam.')
+st.text('Welkom op onze pagina! Wij zijn vier studenten van de Hogeschool van Amsterdam. ')
 st.text('Wij hebben de opdracht gekregen om een blog te maken over een zelf gekozen dataset.')
-st.text('Hiervoor hebben we de dataset LEGO gekozen.')
-st.text('Wij zetten alle leuke feitjes over de lego kleurtjes, themas en sets voor jouw op een rij.')
-st.text('Hierdoor zal je op een interactieve manier datasets leren gebruiken, aan de hand van de dataset LEGO.' )
-st.text ('Wij nemen jouw mee in ons proces om achter deze waarnemingen te komen.')
-st.text('Ben jij je al nieuwsgierig geworden in de inzichten van de lego dataset?')
-st.text('En hoe wij tot de weetjes zijn gekomen?')
-st.text('Lees maar snel verder en dan leren wij jouw een coole lego dataset bouwen.')     
+st.text('Wij hebben de dataset LEGO gekozen. Wij zetten alle leuke feitjes over de lego kleurtjes, themas en sets voor jouw op een rij.')
+st.text('Wij leren jouw op een leuke manier deze dataset te gebruiken.' )
+st.text ("Wij nemen jouw mee in het proces die wij hebben gedaan om achter deze feitjes te komen")
+st.text('Ben jij je al nieuwsgierig geworden in de inzichten van de lego dataset? ')
+st.text('En hoe wij tot deze weetjes zijn gekomen? ')
+st.text("Lees maar snel verder en dan leren wij jouw eenn coole lego dataset bouwen" )      
 
 
 # In[44]:
@@ -41,7 +42,8 @@ st.text('Lees maar snel verder en dan leren wij jouw een coole lego dataset bouw
 
 st.subheader('Stap 1 de dataset vormen ') 
 st.text('We beginnen bij het begin, we lezen eerst via een API de gebruikte data sets in')
-st.text('Daarvoor zijn bepaalde packages nodig om deze te instaleren, maar voordat we deze gebruiken is het nodig om te controleren of we API kunnen gebruiken.')
+st.text('Daarvoor zijn bepaalde packages nodig om deze te instaleren, ')
+st.text('maar voordat we deze gebruiken is het nodig om te controleren of we API kunnen gebruiken.')
 st.text('Dit doen we doormiddel van de response code.')
        
     
@@ -89,9 +91,8 @@ print(f"Response code voor API 'themes': {response_themes.status_code}")
 '''
 st.code(code0, language = 'python')
 
-st.text('Top! Dit is gelukt. De 200 geeft aan dat de API goed is voor gebruik. Nu gaan we verder met de overige package importeren')
-        
-
+st.text('Top! Dit is gelukt. De 200 geeft aan dat de API goed is voor gebruik. ')
+st.text('Nu gaan we verder met de overige package importeren')
 
 # In[ ]:
 
@@ -102,9 +103,14 @@ st.text('Top! Dit is gelukt. De 200 geeft aan dat de API goed is voor gebruik. N
 # In[47]:
 
 
-st.header('Importeren van de API en CSV bestanden')
-st.text('Nu gaan we de API en de CSV bestanden inladen')
-
+st.header('Importeren van de API s & CSV bestanden')
+st.text('Nu gaan we de API en de csv bestanden inlanden')
+st.text('De API s color,sets en themes gaan we aan de hand van de functie JSON inladen')
+st.text('De functie JSON decode dit naar een dictionary genaamd json_data')
+st.text('Tot slot zeten we deze dictionary om tot in een dataframe')
+st.text('Nice, nu zijn de api ready to use.')
+st.text('Nu gaan we verder met het inladen van de csv bestanden inventories, inventory_parts, themes en sets.')
+st.text('Doormiddel van de panda functie kunnen de csv bestanden ingelezen worden')
 
 # In[86]:
 
@@ -195,6 +201,11 @@ st.code(code1, language = 'python')
 
 
 st.header('CSV & API dataframes doormiddel functie merge samenvoegen') 
+st.text(' CSV & API dataframes doormiddel functie: merge, samenvoegen vervolgens wordt alle nuttige data uit de dataframe gehaald. ')
+st.text(' Eerst wordt  root_id toegevoegd. Dat is parent_id of theme_id, mocht er geen parent id zijn. ')
+st.text(' Vervolgens wordt is_trans en kleur bij elkaar gevoegd om elk legoblokje te isoleren. ')
+st.text(' Daarna wordden de rows Vermenigvuldig met de hoeveelheid quantity, om te weten hoeveel een specifieke kleur legoblokje voorkomt en elke set. ')
+st.text(' als laatst wordt er een dataframe van alle nuttige data gemaakt. ')
 
 
 
@@ -290,8 +301,8 @@ st.subheader('Stap 2: dataverkening op de dataset')
 st.text('Nu gaan we onderzoeken welke of de data die we nu hebben wel bruikbaar is. Dit doen wij doormiddel van een functie die zoekt naar missende waardes')
 st.text('Hieruit blijkt dat we data missen in een paar kolomen')
 st.text('Wij hebben er voor gekozen om deze data op te vullen met de waarde nul')
-st.text('Dit hebben we gedaan om als nog bepaalde visualisatie te kunnen doen. Stel we hadden deze NA waardes weghaald, dan zouden we niet veel over bepaalde andere waardes kunnen zeggen.')
-
+st.text('Dit hebben we gedaan om als nog bepaalde visualisatie te kunnen doen. ')
+st.text('Stel we hadden deze NA waardes weghaald, dan zouden we niet veel over bepaalde andere waardes kunnen zeggen.')
 
 # In[55]:
 
@@ -325,7 +336,10 @@ st.code(code3,language='python')
 
 
 st.subheader('Importeer  CSV vs API  (kwaliteitskeuze)')
-
+st.text('Bij het maken van een aantal grafieken kwamen we tot de conclusie dat het leek alsof er data ontbrak via de API importeermethode van de website.') 
+st.text('Vervolgens hebben we dezelfde csv-bestanden via kaggle.com gedownload om de waarnemingen te vergelijken. ')
+st.text('In onderstaande scatterplots is er een duidelijk verschil te zien in de hoeveelheid waarnemingen per dataset. ')
+st.text('Er is waarschijnlijk iets mis met de website Rebrickable.com en de manier waarop zij de data vrijgeven.')
 
 # In[62]:
 
@@ -360,7 +374,9 @@ st.plotly_chart(fig_p)
 
 
 # In[99]:
-
+st.text('Zoals boven beschreven zijn er datasets van Rebrickable niet volledig compleet. ')
+st.text('Hier kwamen we te laat achter en het was te ingewikkeld om dit alles nog aan te passen naar de grotere datasets, ')
+st.text('hierdoor zijn niet alle plots hieronder representatief voor deze data.')
 
 #Importeren van visualisatie thema
 import plotly.io as pio
@@ -370,11 +386,14 @@ color_map = ["cyan", "darkcyan", "cornflowerblue"]
 
 
 # ### Visualisaties
+st.subheader('Visualisaties')
+st.text('Hieronder zijn verschillende visualisaties te zien met een aantal gegevens over de dataset.')
 
 # In[65]:
 
 
 #hoeveelheid parts uitgebracht in een jaar 
+st.text('#hoeveelheid parts uitgebracht in een jaar')
 parts_by_year = df_sets[['year', 'num_parts']].groupby('year').mean().reset_index()
 
 fig_g_y = px.line(parts_by_year, 
@@ -388,6 +407,7 @@ st.plotly_chart(fig_g_y)
 
 
 # ##### Sets: gemiddel aantal onderdel per set
+st.text('Sets: gemiddel aantal onderdel per set')
 
 # In[100]:
 
@@ -409,7 +429,7 @@ st.plotly_chart(fig_bar)
 
 
 # ##### Thema: gemiddel aantal sets per thema
-
+st.text('Thema: gemiddel aantal sets per thema')
 # In[71]:
 
 
@@ -430,6 +450,7 @@ st.plotly_chart(fig_bar_th)
 
 
 # ##### Color: gemiddel aantal blokjes per kleur
+st.text('Color: gemiddel aantal blokjes per kleur')
 
 # In[73]:
 
@@ -451,6 +472,10 @@ st.plotly_chart(fig_b_k)
 
 # ### Slider:
 # ### Aantal nieuwe legosets door de jaren heen
+st.subheader('Slider:')
+st.subheader('Aantal nieuwe legosets door de jaren heen')
+st.text('Bovenstaande grafiek geeft het aantal legosets weer per jaar en wat de namen hiervan zijn. ')
+st.text('Met behulp van de slider kan er gekeken worden per jaar.')
 
 # In[78]:
 
@@ -489,6 +514,11 @@ st.plotly_chart(fig_set)
 
 # ### Checkbox: 
 # ### Hoeveelheid parts uitgebracht in een jaar is transparant wel of niet
+st.subheader('Checkbox: :')
+st.subheader('Hoeveelheid parts uitgebracht in een jaar is transparant wel of niet')
+st.text('Bovenstaande grafiek geeft de hoeveelheid parts per jaar weer en of deze transparant zijn of niet. ')
+st.text('De meerderheid van alle blokjes is duidelijk niet transparant.')
+st.text('Verder ontbreekt hier duidelijk ook data, dus dat is jammer en geeft geen goed overzicht.')
 
 # In[79]:
 
@@ -520,6 +550,11 @@ st.plotly_chart(fig_part)
 
 # ### Dropdown menu:  
 # ### Aantal blokjes per kleur per jaar
+st.subheader('Dropdown menu:')
+st.subheader('Aantal blokjes per kleur per jaar')
+st.text('De laatste grafiek geeft per jaar het aantal blokjes per kleur weer.') 
+st.text('Dit is te selecteren via het drop-down menu of doormiddel van het selecteren van de kleuren rechts. ')
+st.text('Ook hier mist helaas een hoop data.')
 
 # In[84]:
 
@@ -587,7 +622,8 @@ st.plotly_chart(fig_drop)
 
 
 # In[ ]:
-
+st.text('Dankjewel voor het lezen van onze blog')
+st.text('Hopelijk hebben jullier er veel van geleerd en kan je nu verder bouwen met je eigen Lego blokjes dataset')
 
 
 
