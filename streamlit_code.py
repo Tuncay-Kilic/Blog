@@ -291,7 +291,6 @@ print(missende_data)
 #Missende data wegfilteren: df 
 #df = df_totaal.dropna()
 df = df_totaal.fillna(0)
-st.code(code)
 
 
 # In[97]:
