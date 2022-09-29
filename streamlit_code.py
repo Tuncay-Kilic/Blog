@@ -94,10 +94,6 @@ st.text('Top! Dit is gelukt. De 200 geeft aan dat de API goed is voor gebruik. N
 
 # In[ ]:
 
-
-
-
-
 # In[47]:
 
 
@@ -301,6 +297,7 @@ print(missende_data)
 #Missende data wegfilteren: df 
 #df = df_totaal.dropna()
 df = df_totaal.fillna(0)
+st.dataframe(df)
 
 
 # In[97]:
@@ -314,7 +311,7 @@ print(missende_data)
 #Missende data wegfilteren: df 
 #df = df_totaal.dropna()
 df = df_totaal.fillna(0)
-st.code(code)
+st.dataframe(df)
 '''
 st.code(code3,language='python')
 
