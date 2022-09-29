@@ -104,8 +104,8 @@ st.text('Top! Dit is gelukt. De 200 geeft aan dat de API goed is voor gebruik. N
 # In[47]:
 
 
-st.header('Importeren van de API s &CSV bestanden')
-st.text('Nu gaan we de API en de csv bestanden inlanden')
+st.header('Importeren van de API en CSV bestanden')
+st.text('Nu gaan we de API en de CSV bestanden inladen')
 
 
 # In[86]:
