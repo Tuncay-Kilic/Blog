@@ -69,6 +69,24 @@ print(f"Response code voor API 'themes': {response_themes.status_code}")
 
 # In[46]:
 
+code0= '''
+#Controle of de gebruikte API's werken
+import requests
+import pandas as pd
+
+#API: color
+response_color = requests.get("https://rebrickable.com/api/v3/lego/colors/?key=1596f7b76482d264ab289aa7a9c16cb0")
+print(f"Response code voor API 'color': {response_color.status_code}")
+
+#API: sets
+response_sets = requests.get("https://rebrickable.com/api/v3/lego/sets/?key=1596f7b76482d264ab289aa7a9c16cb0")
+print(f"Response code voor API 'sets': {response_sets.status_code}")
+
+#API: themes
+response_themes= requests.get("https://rebrickable.com/api/v3/lego/themes/?key=1596f7b76482d264ab289aa7a9c16cb0")
+print(f"Response code voor API 'themes': {response_themes.status_code}") 
+'''
+st.code(code0, language = 'python')
 
 st.text('Top! Dit is gelukt. De 200 geeft aan dat de API goed is voor gebruik. Nu gaan we verder met de overige package importeren')
         
