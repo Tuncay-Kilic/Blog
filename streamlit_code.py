@@ -484,11 +484,11 @@ df_sets['date']=pd.to_datetime(df_sets['year'], format="%Y")
 df_sets["date"]=pd.to_numeric(df_sets['year'])
 
 #print(df_sets)
-fig_set, ax = plt.subplots(1,1,figsize=(25, 8))
+fig_sets, ax = plt.subplots(1,1,figsize=(25, 8))
 sns.countplot(data= df_sets, x='year')
 plt.xticks(rotation=90)
 plt.title('Geschiedenis van Lego Sets')
-plt.show()
+st.pyplot(fig_sets)
 
 
 df1_sets = df_sets.sort_values('date',ascending=True)
